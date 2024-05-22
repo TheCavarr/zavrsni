@@ -63,15 +63,33 @@ void dodajGlazbu() {
 	scanf(" %19[^\n]", temp->album);
 
 	fp = fopen("album.bin","rb");
+
 	if (fp == NULL) {
 		fp = fopen("album.bin", "wb");
 		fseek(fp, sizeof(ALBUM) * brojGlazbe, SEEK_CUR);
 		fwrite(&temp, sizeof(ALBUM), 1, fp);
 		rewind(fp);
 		brojGlazbe++;
+		fwrite(&brojGlazbe,sizeof(int),1,fp);
+		fclose(fp);
+	}else{
+		fclose(fp);
+		fp=fopen("album.bin","rb+");
+		if(fp==NULL){
+			printf("Greska.");
+			return 1;
+		}else{
+			rewind(fp);
+			fread(%brojGlazbe,sizeof(int),1,fp);
+			brojGlazbe++;
+			rewind(fp);
+			fwrite(%brojGlazbe,sizeof(int),1,fp);
+			rewind(fp);
+			fwrite(temp,sizeof(ALBUM),1,fp);
+			fclose(fp);
+		}
 	}
-
-
+	
 	fclose(fp);
 	free(temp);
 
