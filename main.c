@@ -10,8 +10,8 @@ int main() {
 
 	do {
 		printf("1.Dodaj glazbu.\n");
-		printf("2.Uredi glazbu.\n");
-		printf("3.Ispisi svu glazbu.\n");
+		printf("2.Ispisi svu glazbu.\n");
+		printf("3.Uredi glazbu.\n");
 		printf("4.Pretrazi po imenu pjesme.\n");
 		printf("5.Pretrazi po imeni izvodaca.\n");
 		printf("6.Pretrazi po imenu albuma.\n");

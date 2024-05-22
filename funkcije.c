@@ -15,11 +15,11 @@ void izbornik(int n) {
 		break;
 
 	case 2:
-		urediGlazbu();
+		ispisGlazbe();
 		break;
 
 	case 3:
-		ispisGlazbe();
+		urediGlazbu();
 		break;
 
 	case 4:
@@ -47,7 +47,7 @@ void izbornik(int n) {
 
 void dodajGlazbu() {
 	FILE* fp = NULL;
-	ALBUM* temp;
+	ALBUM* temp=NULL;
 
 	temp = (ALBUM*)malloc(sizeof(ALBUM));
 	if (temp == NULL) {
@@ -77,13 +77,13 @@ void dodajGlazbu() {
 		fp=fopen("album.bin","rb+");
 		if(fp==NULL){
 			printf("Greska.");
-			return 1;
+			return ;
 		}else{
 			rewind(fp);
-			fread(%brojGlazbe,sizeof(int),1,fp);
+			fread(&brojGlazbe,sizeof(int),1,fp);
 			brojGlazbe++;
 			rewind(fp);
-			fwrite(%brojGlazbe,sizeof(int),1,fp);
+			fwrite(&brojGlazbe,sizeof(int),1,fp);
 			rewind(fp);
 			fwrite(temp,sizeof(ALBUM),1,fp);
 			fclose(fp);
@@ -96,11 +96,47 @@ void dodajGlazbu() {
 	return;
 }
 
-void urediGlazbu() {
+void ispisGlazbe() {
+	int n = 0;
+	int i = 0;
+	FILE* fp = NULL;
+	ALBUM* temp = NULL;
+
+	fp = fopen("album.bin", "rb");
+	if (fp == NULL) {
+		printf("Album je prazan.");
+		return;
+	}
+
+	fread(&n, sizeof(int), 1, fp);
+	if (n == 0) {
+		printf("Album je prazan.");
+		return;
+	}
+
+	temp = (ALBUM*)malloc(n * sizeof(ALBUM));
+	if (temp == NULL) {
+		printf("Greska.");
+		return 1;
+	}
+
+	fread(temp, sizeof(ALBUM), 1, fp);
+
+	printf("Postoje %d. spremljene glazbe.",n);
+
+	for (i = 0;i < n;i++) {
+		printf("\n\nArtist:%s", (temp + i)->izvodac);
+		printf("\nAlbum:%s", (temp + i)->pjesma);
+		printf("\nGenre:%s", (temp + i)->album);
+	}
+
+	fclose(fp);
+	free(temp);
+
 	return;
 }
 
-void ispisGlazbe() {
+void urediGlazbu() {
 	return;
 }
 
