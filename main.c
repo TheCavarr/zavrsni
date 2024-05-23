@@ -8,7 +8,7 @@
 int main() {
 	int n = 0;
 
-	do {
+	while(1) {
 		printf("1.Dodaj glazbu.\n");
 		printf("2.Ispisi svu glazbu.\n");
 		printf("3.Uredi glazbu.\n");
@@ -16,19 +16,17 @@ int main() {
 		printf("5.Pretrazi po imeni izvodaca.\n");
 		printf("6.Pretrazi po imenu albuma.\n");
 		printf("7.Izbrisi glazbu.\n");
-		printf("8.Spremi i izadi.\n");
+		printf("8.Izbrisi datoteku.\n");
+		printf("9.Spremi i izadi.\n");
 
 		do {
 			printf("Unesite broj:");
 			scanf("%d", &n);
-		} while (!(n > 0 && n < 9));
+		} while (!(n > 0 && n < 10));
 
 		izbornik(n);
 
-	} while (n != 8);
-
-
-
+	}
 
 	return 0;
 }
