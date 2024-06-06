@@ -96,8 +96,6 @@ void dodajGlazbu() {
 
 	fclose(fp);
 	free(temp);
-
-	return;
 }
 
 void ispisGlazbe() {
@@ -145,8 +143,6 @@ void ispisGlazbe() {
 
 	fclose(fp);
 	free(temp);
-
-	return;
 }
 
 void urediGlazbu() {
@@ -187,12 +183,14 @@ void urediGlazbu() {
 		return;
 	}
 	else if (nadeno == 1) {
-		printf("\n\nPjesma je nadena.\n\n");
+		printf("\nPjesma je nadena.\n\n");
 		fp = fopen("album.bin", "rb+");
 		if (fp == NULL) {
 			printf("Greska.\n");
 			return 1;
 		}
+
+		fread(&brojGlazbe, sizeof(int), 1, fp);
 
 		for (int i = 0; i < brojGlazbe; i++) {
 			if (i == index) {
@@ -203,6 +201,10 @@ void urediGlazbu() {
 				printf("Unesite novo ime albuma:");
 				scanf(" %19[^\n]", (temp + i)->album);
 
+				//printf("%s", (temp + i)->izvodac);
+				//printf("%s", (temp + i)->pjesma);
+				//printf("%s", (temp + i)->album);
+
 				fwrite((temp + i), sizeof(ALBUM), 1, fp);
 				break;
 			}
@@ -211,8 +213,6 @@ void urediGlazbu() {
 
 	fclose(fp);
 	free(temp);
-
-	return;
 }
 
 void pretrazivanjePjesme() {
@@ -261,8 +261,6 @@ void pretrazivanjePjesme() {
 
 	fclose(fp);
 	free(temp);
-
-	return;
 }
 
 void pretrazivanjeIzvodaca() {
@@ -311,8 +309,6 @@ void pretrazivanjeIzvodaca() {
 
 	fclose(fp);
 	free(temp);
-
-	return;
 }
 
 void pretrazivanjeAlbuma() {
@@ -361,8 +357,6 @@ void pretrazivanjeAlbuma() {
 
 	fclose(fp);
 	free(temp);
-
-	return;
 }
 
 void brisanjeGlazbe() {
@@ -460,8 +454,6 @@ void brisanjeDatoteke() {
 	if (odgovor == 'N') {
 		return 0;
 	}
-
-	return;
 }
 
 void izlaz() {
@@ -485,3 +477,4 @@ void izlaz() {
 		return 0;
 	}
 }
+
