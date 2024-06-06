@@ -157,6 +157,7 @@ void urediGlazbu() {
 		printf("\nAlbum je prazan.\n\n");
 		return 1;
 	}
+
 	fread(&brojGlazbe, sizeof(int), 1, fp);
 
 	temp = (ALBUM*)malloc(brojGlazbe * sizeof(ALBUM));
@@ -167,6 +168,7 @@ void urediGlazbu() {
 
 	fread(temp, sizeof(ALBUM), brojGlazbe, fp);
 	fclose(fp);
+
 	printf("Unesi ime pjesme za uredivanje:");
 	scanf(" %19[^\n]", trazeno);
 
@@ -191,6 +193,8 @@ void urediGlazbu() {
 		}
 
 		fread(&brojGlazbe, sizeof(int), 1, fp);
+		rewind(fp);
+		fseek(fp, 4, SEEK_SET);
 
 		for (int i = 0; i < brojGlazbe; i++) {
 			if (i == index) {
@@ -208,6 +212,7 @@ void urediGlazbu() {
 				fwrite((temp + i), sizeof(ALBUM), 1, fp);
 				break;
 			}
+			fseek(fp, sizeof(ALBUM), SEEK_CUR);
 		}
 	}
 
@@ -414,7 +419,7 @@ void brisanjeGlazbe() {
 							fwrite((temp + i), sizeof(ALBUM), 1, fp);
 						}
 					}
-					printf("\nAlbum je uspjesno obrisan.\n");
+					printf("\nPjesma je uspjesno obrisana.\n");
 					free(temp);
 					fclose(fp);
 				}
@@ -442,11 +447,11 @@ void brisanjeDatoteke() {
 	if (odgovor == 'Y') {
 		x = remove(fp);
 		if (x == 0) {
-			printf("Datoteka uspjesno obrisana.");
+			printf("\nDatoteka uspjesno obrisana.\n");
 			return;
 		}
 		else {
-			printf("Datoteka ne uspjesno obrisana.");
+			printf("\nDatoteka ne uspjesno obrisana.\n");
 			return;
 		}
 	}
