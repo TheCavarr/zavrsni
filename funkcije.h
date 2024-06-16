@@ -16,3 +16,4 @@ void pretrazivanjeAlbuma();
 void brisanjeGlazbe();
 void brisanjeDatoteke();
 void izlaz();
+void sortiranje(ALBUM*);
