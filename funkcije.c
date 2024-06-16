@@ -125,8 +125,10 @@ void ispisGlazbe() {
 
 	fread(temp, sizeof(ALBUM), brojGlazbe, fp);
 
+	sortiranje(temp);
+
 	if (brojGlazbe == 1) {
-	printf("Postoji %d. spremljena pjesma.", brojGlazbe);
+		printf("Postoji %d. spremljena pjesma.", brojGlazbe);
 	}
 	else {
 		printf("Postoje %d. spremljene pjesme.", brojGlazbe);
@@ -249,7 +251,13 @@ void pretrazivanjePjesme() {
 	for (int i = 0; i < brojGlazbe; i++) {
 		if (strcmp((temp + i)->pjesma, trazeno) == 0) {
 			br++;
-			printf("\nPjesma je %d. nadena!\n", br);
+			//printf("\nPjesma je %d put nadena!\n", br);
+			if (br == 1) {
+				printf("\nPjesma je 1 put nadena!\n", br);
+			}
+			else {
+				printf("\nPjesma je %d puta nadena!\n", br);
+			}
 			printf("\nPjesma:%s", (temp + i)->pjesma);
 			printf("\nIzvodac:%s", (temp + i)->izvodac);
 			printf("\nAlbum:%s\n", (temp + i)->album);
@@ -261,7 +269,7 @@ void pretrazivanjePjesme() {
 	printf("\n");
 
 	if (nadeno == 0) {
-		printf("\nPjesma nije nadena.\n\n");
+		printf("Pjesma nije nadena.\n\n");
 	}
 
 	fclose(fp);
@@ -297,7 +305,13 @@ void pretrazivanjeIzvodaca() {
 	for (int i = 0; i < brojGlazbe; i++) {
 		if (strcmp((temp + i)->izvodac, trazeno) == 0) {
 			br++;
-			printf("\nIzvodac je %d. naden!\n", br);
+			//printf("\nIzvodac je %d. naden!\n", br);
+			if (br == 1) {
+				printf("\nIzvodac je 1 put naden!\n", br);
+			}
+			else {
+				printf("\nIzvodac je %d puta naden!\n", br);
+			}
 			printf("\nIzvodac:%s", (temp + i)->izvodac);
 			printf("\nPjesma:%s", (temp + i)->pjesma);
 			printf("\nAlbum:%s\n", (temp + i)->album);
@@ -309,7 +323,7 @@ void pretrazivanjeIzvodaca() {
 	printf("\n");
 
 	if (nadeno == 0) {
-		printf("Izvodac nije nadena.\n\n");
+		printf("Izvodac nije naden.\n\n");
 	}
 
 	fclose(fp);
@@ -345,7 +359,13 @@ void pretrazivanjeAlbuma() {
 	for (int i = 0; i < brojGlazbe; i++) {
 		if (strcmp((temp + i)->album, trazeno) == 0) {
 			br++;
-			printf("\nAlbum je %d. naden!\n", br);
+			//printf("\nAlbum je %d. naden!\n", br);
+			if (br == 1) {
+				printf("\nAlbum je 1 put naden!\n", br);
+			}
+			else {
+				printf("\nAlbum je %d puta naden!\n", br);
+			}
 			printf("\nAlbum:%s\n", (temp + i)->album);
 			printf("\nPjesma:%s", (temp + i)->pjesma);
 			printf("\nIzvodac:%s", (temp + i)->izvodac);
@@ -357,7 +377,7 @@ void pretrazivanjeAlbuma() {
 	printf("\n");
 
 	if (nadeno == 0) {
-		printf("\nAlbum nije nadena.\n\n");
+		printf("Album nije naden.\n\n");
 	}
 
 	fclose(fp);
@@ -433,7 +453,6 @@ void brisanjeDatoteke() {
 	int x;
 	char fp[] = "album.bin";
 	printf("Jeste li sigurni da zelite obrisati datoteku (Y/N):");
-	getchar();
 
 	while (1) {
 		scanf("%c", &odgovor);
@@ -464,7 +483,6 @@ void brisanjeDatoteke() {
 void izlaz() {
 	char odgovor;
 	printf("Jeste li sigurni da zelite izaci iz programa (Y/N):");
-	getchar();
 
 	while (1) {
 		scanf("%c", &odgovor);
@@ -483,3 +501,33 @@ void izlaz() {
 	}
 }
 
+void sortiranje(ALBUM* copy) {
+	int i = 0;
+	int j = 0;
+	ALBUM* temp = NULL;
+
+	temp = (ALBUM*)malloc(brojGlazbe * sizeof(ALBUM));
+	if (temp == NULL) {
+		printf("\nGreska.\n");
+		return 1;
+	}
+
+	for (i = 0;i < brojGlazbe;++i) {
+		for (j = i + 1;j < brojGlazbe;j++) {
+			if (strcmp(copy[i].izvodac, copy[j].izvodac) > 0) {
+				strcpy(temp, copy[i].izvodac);
+				strcpy(copy[i].izvodac, copy[j].izvodac);
+				strcpy(copy[j].izvodac, temp);
+
+				strcpy(temp, copy[i].album);
+				strcpy(copy[i].album, copy[j].album);
+				strcpy(copy[j].album, temp);
+
+				strcpy(temp, copy[i].pjesma);
+				strcpy(copy[i].pjesma, copy[j].pjesma);
+				strcpy(copy[j].pjesma, temp);
+			}
+		}
+	}
+	free(temp);
+}
