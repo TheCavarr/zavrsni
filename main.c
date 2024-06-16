@@ -8,7 +8,7 @@
 int main() {
 	int n = 0;
 
-	while(1) {
+	while (1) {
 		printf("1.Dodaj glazbu.\n");
 		printf("2.Ispisi svu glazbu.\n");
 		printf("3.Uredi glazbu.\n");
@@ -22,6 +22,7 @@ int main() {
 		do {
 			printf("Unesite broj:");
 			scanf("%d", &n);
+			getchar();
 		} while (!(n > 0 && n < 10));
 
 		izbornik(n);
