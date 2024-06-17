@@ -5,6 +5,8 @@
 #include <string.h>
 #include "funkcije.h"
 
+char odgovor;
+
 int main() {
 	int n = 0;
 
