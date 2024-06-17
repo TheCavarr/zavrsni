@@ -17,3 +17,13 @@ void brisanjeGlazbe();
 void brisanjeDatoteke();
 void izlaz();
 void sortiranje(ALBUM*);
+
+/*
+void pretrazivanje();
+int cmp_ALBUM(const void* a, const void* b);
+int cmp_pjesma(const void* a, const void* b);
+int cmp_album(const void* a, const void* b);
+int cmp_izvodac(const void* a, const void* b);
+*/
+
+extern char odgovor;
