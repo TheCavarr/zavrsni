@@ -17,6 +17,9 @@ void brisanjeGlazbe();
 void brisanjeDatoteke();
 void izlaz();
 void sortiranje(ALBUM*);
+int comparePjesma(const void* a, const void* b);
+
+extern char odgovor;
 
 /*
 void pretrazivanje();
@@ -26,4 +29,4 @@ int cmp_album(const void* a, const void* b);
 int cmp_izvodac(const void* a, const void* b);
 */
 
-extern char odgovor;
+
