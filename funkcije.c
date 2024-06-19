@@ -1,3 +1,4 @@
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -402,7 +403,7 @@ void brisanjeGlazbe() {
 		printf("\nAlbum je prazan.\n\n");
 		return 1;
 	}
-	
+
 	fread(&brojGlazbe, sizeof(int), 1, fp);
 
 	temp = (ALBUM*)malloc(brojGlazbe * sizeof(ALBUM));
@@ -410,7 +411,7 @@ void brisanjeGlazbe() {
 		perror("Greska.");
 		return 1;
 	}
-		
+
 	fread(temp, sizeof(ALBUM), brojGlazbe, fp);
 	fclose(fp);
 	printf("Unesite ime pjesme koju zelite obrisati:");
@@ -436,7 +437,7 @@ void brisanjeGlazbe() {
 		perror("Greska.");
 		return 1;
 	}
-				
+
 	brojGlazbe--;
 	fwrite(&brojGlazbe, sizeof(int), 1, fp);
 	for (int i = 0; i < brojGlazbe + 1; i++) {
@@ -486,7 +487,7 @@ void brisanjeDatoteke() {
 }
 
 void izlaz() {
-	odgovor=NULL;
+	odgovor = NULL;
 	printf("Jeste li sigurni da zelite izaci iz programa (Y/N):");
 
 	while (1) {
@@ -511,7 +512,13 @@ void sortiranje(ALBUM* copy) {
 		return;
 	}
 
-	qsort(copy, brojGlazbe, sizeof(ALBUM), (int (*)(const void*, const void*))strcmp);
+	qsort(copy, brojGlazbe, sizeof(ALBUM), comparePjesma);
+}
+
+int comparePjesma(const void* a, const void* b) {
+	const ALBUM* albumA = (const ALBUM*)a;
+	const ALBUM* albumB = (const ALBUM*)b;
+	return strcmp(albumA->pjesma, albumB->pjesma);
 }
 
 /*void sortiranje(ALBUM* copy) {
